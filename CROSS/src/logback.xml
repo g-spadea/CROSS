@@ -1,0 +1,37 @@
+<configuration>
+
+	<!-- This appender directs log output to the standard console. -->
+	<!-- It is useful for real-time monitoring during development. -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<!-- The encoder is responsible for converting the log event into a writable format. -->
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- Writes logs to a file. -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    
+		<file>logs/server.log</file>
+	    
+	    <!-- Archives log files daily. -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- Defines the name for archived logs (e.g., server.2025-09-05.log) -->
+			<fileNamePattern>logs/server.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	    
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+		</encoder>
+	    
+	</appender>
+	
+	<!-- The main logger for the entire application -->
+	<!-- Sets the logging level to INFO (INFO, WARN, and ERROR messages are shown) -->
+	<root level="INFO">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
+	</root>
+
+</configuration>
